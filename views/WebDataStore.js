@@ -1,9 +1,7 @@
 var WebDataStore = function(){
-
-	var _this = this;
-	
-	var ds = function($){
-		_this.$ = $;
+	var $;
+	var ds = function(jQuery){
+		$ = jQuery;
 	};
 	ds.prototype.readData = function(setName, sl, cb){
 		var selector, callback;
@@ -14,7 +12,7 @@ var WebDataStore = function(){
 		if(!callback){
 			callback([{code:-1,errmsg:"not callback"}]);
 		}
-		return _this.$.getJSON(
+		return $.getJSON(
 			"http://192.168.1.120:3000/dataService/find?callback=?",
 			{setName:setName,selector:selector},
 			callback
@@ -24,7 +22,7 @@ var WebDataStore = function(){
 		if(!callback){
 			callback([{code:-1,errmsg:"not callback"}]);
 		}
-		return _this.$.getJSON(
+		return $.getJSON(
 			"http://192.168.1.120:3000/dataService/save?callback=?",
 			{setName:setName,document:document},
 			callback
@@ -35,7 +33,7 @@ var WebDataStore = function(){
 		if(!callback){
 			callback([{code:-1,errmsg:"not callback"}]);
 		}
-		return _this.$.getJSON(
+		return $.getJSON(
 			"http://192.168.1.120:3000/dataService/remove?callback=?",
 			{setName:setName,document:document},
 			callback
