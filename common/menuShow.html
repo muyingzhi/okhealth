@@ -1,0 +1,51 @@
+<% include header.html %>
+
+<div class="container-fluid" ng-app>
+	<div ng-controller="Mycontroller">
+		<div class="row">
+			<center><h2>{{data.title}}</h2></center>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-md-4" ng-repeat="branch in data.menu">
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						<label>菜单{{$index}}</label>
+						<input type="text" ng-model="branch.name">
+					</div>
+					<div class="panel-body">
+						<ul class="list-group">
+							<li class="list-group-item" ng-repeat="sub in branch.sub_button">
+								<label for="menuName">子项</label>
+								<input type="text" size="8" ng-model="sub.name"/><p>
+								<label>类型</label>
+								<select ng-model="sub.type" 
+									ng-options="opType.name as opType.text for opType in types">
+									
+								</select><p>
+								<label >键值</label>
+								<input size="20" ng-model="sub.key"/>
+								<span ng-show="sub.type=='view'">
+									<input type="checkbox" ng-model="sub.oauth" >带认证
+								</span>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<center>
+				<button type="button" class="btn btn-success" ng-click="saveMenu()">
+					<span class="glyphion glyphion-save"></span>更新菜单
+				</button>
+				<button type="button" class="btn btn-success" ng-click="logout()">退出</a>
+			</center>
+		</div>
+	</div>
+</div>
+	<script type="text/javascript" src="menuShowCode.js"></script>
+	<script type="text/javascript">
+	window.modeData = <%- JSON.stringify(data) %>;
+	//----来自node服务端的数据被写入modeData，这里需要尽快在controller中另存到变量
+	</script>
+<% include footer.html %>

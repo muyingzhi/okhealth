@@ -1,0 +1,25 @@
+
+<div ng-controller="editUserController">
+	<form method="post" class="form-horizontal">
+			<legend>注册</legend>
+			<div class="form-group">
+				<label class="col-xs-3 col-sm-2 control-label" for="username">用户名</label>
+				<div class="col-xs-4 col-sm-4">
+					<input type="text" class="form-control" ng-model="user.username" name="username"  placeholder="登录用户名">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-3 col-sm-2 control-label" for="password">密码</label>
+				<div class="col-xs-4 col-sm-4">
+					<input type="password" class="form-control" ng-model="user.password" name="password">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-offset-3 col-sm-offset-2 col-sm-10">
+					<input type="button" class="btn btn-success" value="保存" ng-click="saveUser()"></input>
+					<input type="reset"  class="btn btn-primary" value="重置" ng-click="reset()"></input>
+				</div>
+			</div>
+	</form>
+	<div class="col-xs-offset-3 col-sm-offset-2 col-sm-10">{{result4save.message}}<a ng-show="result4save.code==1" href="#/login">登录</a></div>
+</div>
