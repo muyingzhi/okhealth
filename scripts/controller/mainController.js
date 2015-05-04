@@ -69,7 +69,7 @@ define(['controller/controllers','jquery',
                 //----id不同，且当前id有效，那就是修改了jgbm，修改的值已经有另一个记录，不能保存
                 //---------- 且当前id无，那么是新增，当时jgbm已经有记录，不能保存
                 //----能保存的，使id＝jgbm；
-                doc._id = doc.jgbm;
+                //doc._id = doc.jgbm;
                 dbService.save(setName,doc).then(saveCallback);
             }
             //---------------
