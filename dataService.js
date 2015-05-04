@@ -8,6 +8,7 @@ var bodyParser = require("body-parser");
 var session = require('cookie-session');
 var wechat = require('wechat');
 var MongoClient = require('mongodb').MongoClient;
+var ObjectID = require('mongodb').ObjectID;
 var app = express();
 var error = {};
 //-------------views engine for HTML
@@ -73,6 +74,10 @@ app.use("/save",function(req, res){
     console.log("[callback]:"+callback + " [SAVE TO]:"+setName);
     if(typeof document == "string"){
         document = JSON.parse(document);
+    }
+    if(!document._id){//---新建的，生成_id;
+        var objId = new ObjectID();
+        document._id = objId.toHexString();
     }
     console.log(document);
     if(!setName){
