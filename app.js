@@ -16,7 +16,6 @@ var views = [];
 app.use("/public/javascripts/jquery.min.map", function(req, res){
     res.send("");
 })
-app.use('/ok', require('./app4okhealth'));
 app.use('/dataService', require('./dataService'));
 
 // catch 404 and forward to error handler
