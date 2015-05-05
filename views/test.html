@@ -2,16 +2,40 @@
 <head>
 </head>
 <body>
+	<label>集合名称</label><input id="setName" value="eeee">
+	<button onclick="read()">read</button>
+	<button onclick="writeData()">write</button>
+
 	<div id="showX">
 		
 	</div>
-	<script type="text/javascript" src="WebDataStore.js"></script>
+	<script type="text/javascript" src="../vendor/javascripts/jquery.min.js"></script>
+	<script type="text/javascript" src="http://localhost:3000/ok/views/WebDataStore.js"></script>
 	<script type="text/javascript">
-		var ds = new WebDataStore();
-		ds.readData("eeee",function(data){
-			if(data.code==0){
-				
-			}
-		});
+		var ds = new WebDataStore(jQuery);
+		function read(){
+			var setName = document.getElementById("setName").value;
+			ds.readData(setName,function(data){
+				if(data.code==0){
+					var div = document.getElementById("showX");
+					var tmp = "";
+					for(var i=0;i<data.list.length;i++){
+						tmp += "<li>"+JSON.stringify(data.list[i]) + "</li>";
+					}
+					tmp = "<ul>"+tmp+"</ul>"
+					div.innerHTML = "eeee共有记录："+tmp;
+				}
+			});
+		}
+		function writeData(){
+			var setName = document.getElementById("setName").value;
+			ds.writeData(setName,{"title":"new record"},function(result){
+				if(result.code==0){
+					alert("write 'eeee' ok");
+				}else{
+					alert("write failure");
+				}
+			})
+		}
 	</script>
 </body>
