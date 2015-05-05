@@ -12,6 +12,10 @@ define(['controller/controllers','jquery'
             $scope.onSelectWord = function(language){
                 $scope.language = words[language];
             }
+            $rootScope.topNav = [
+                {text:"主页",href:"#main"},
+                {text:$scope.language.help,href:"#help"}
+                ];
         }
     ]);
 })

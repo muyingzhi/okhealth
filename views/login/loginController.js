@@ -8,7 +8,7 @@ define(['controller/controllers','jquery'],function(controllers,$){
             var out = $routeParams.out;
             if(out){
                 //----退出的后端处理
-                $http.get("../logout").success(function(data){
+                $http.get("logout").success(function(data){
                     console.log(data);
                 });
             }      
@@ -16,7 +16,7 @@ define(['controller/controllers','jquery'],function(controllers,$){
             }
             $scope.doLogin = function(){
                 var user = {username:$scope.username,password:$scope.password};
-                $http.post("../doLogin",user).
+                $http.post("doLogin",user).
                     success(function(data, status, headers, config){
                         console.log("success");
                         if(data.code==0){

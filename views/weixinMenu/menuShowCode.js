@@ -27,7 +27,7 @@ function Mycontroller($scope,$http){
 	$scope.logout = function(){
 		$http.get("../logout").
 		success(function(){
-			window.location.href = "../views/index.html"
+			window.location.href = "../index.html"
 		}).
 		error(function(){
 			alert("error");

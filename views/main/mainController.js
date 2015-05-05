@@ -13,7 +13,7 @@ define(['controller/controllers','jquery',
                 //-----根据用户id查询权限菜单
                 //-----设置菜单
                 $rootScope.topNav = [
-                {text:"微信菜单",href:"../common/menuInfo"},
+                {text:"微信菜单",href:"weixinMenu/menuInfo"},
                 {text:$scope.language.exit,href:"#login/out"},
                 {text:$scope.language.help,href:"#help"}
                 ];

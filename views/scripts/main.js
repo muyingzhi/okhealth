@@ -38,38 +38,38 @@ require([
     'angular',
     'app',
     'bootstrap',
-    'controller/indexController',
-    'controller/mainController',
-    'controller/loginController',
-    'controller/editUserController'
+    '../indexController',
+    '../main/mainController',
+    '../login/loginController',
+    '../common/editUserController'
          ],
     function(angular,app,bootstrap){
 	    'use strict';
-        addStyle("../vendor/stylesheets/bootstrap.min.css");
-        addStyle("../vendor/stylesheets/bootstrap-theme.min.css");   
+        addStyle("vendor/stylesheets/bootstrap.min.css");
+        addStyle("vendor/stylesheets/bootstrap-theme.min.css");   
         if(app==undefined){console.log("app is undefined");}
         
 	    app.config(['$routeProvider','$locationProvider',function($routeProvider,$locationProvider){
             $routeProvider.
                 when("/main",{
-                    templateUrl:"main.html",
+                    templateUrl:"main/main.html",
                     controller:"mainController"
                 }).
                 when("/main/:uid",{
-                    templateUrl:"main.html",
+                    templateUrl:"main/main.html",
                     controller:"mainController"
                 }).
                 when("/login",{
-                    templateUrl:"../common/loginPage.html",
+                    templateUrl:"login/loginPage.html",
                     controller:"loginController"
                 }).
                 when("/login/:out",{
-                    templateUrl:"../common/loginPage.html",
+                    templateUrl:"login/loginPage.html",
                     controller:"loginController"
                 }).
 
                 when("/userEdit",{
-                    templateUrl:"../common/editUser.html",
+                    templateUrl:"common/editUser.html",
                     controller:"editUserController"
                 }).
                 otherwise({

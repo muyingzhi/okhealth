@@ -6,7 +6,7 @@ define(['controller/controllers','jquery'],function(controllers,$){
             $rootScope.topNav = [
             ];
             $scope.saveUser = function(){
-                $http.post("../saveUser",$scope.user)
+                $http.post("saveUser",$scope.user)
                 .success(function(data,status,headers,config){
                     $scope.result4save = {code:1,message:"注册成功"};
                 })

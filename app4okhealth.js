@@ -17,11 +17,7 @@ app.set('views', views);
 app.engine('html', ejs.renderFile);
 app.set('view engine', 'html'); // app.set('view engine', 'ejs');
 //----js文件目录,在html中引用js文件采用这里定义的相对路径
-app.use(express.static(path.join(__dirname, './')));
-// app.use("/scripts",express.static(path.join(__dirname, '/scripts')));
-// app.use("/vendor",express.static(path.join(__dirname, '/vendor')));
-// app.use("/views",express.static(path.join(__dirname, '/views')));
-// app.use("/common",express.static(path.join(__dirname, '/common')));
+app.use(express.static(path.join(__dirname, './views')));
 //----设置session
 app.use(session({
     name: 'Msessionid',
@@ -108,6 +104,13 @@ app.use("/saveHospital",function(req, res){
         });
     })
 })
+
+console.log("showMenu ......");
+//----显示微信菜单
+app.use("/weixinMenu/menuInfo", function(req,res){
+    console.log("showMenu ......");
+    require("./routes/menu4wx").showMenu(req,res);
+});//require("./routes/menu4wx").showMenu);
 //----检查session，以下的router需要用户登录
 app.use(function(req, res, next) {
     var sess = req.session;
@@ -116,13 +119,10 @@ app.use(function(req, res, next) {
     } else{
         console.log(req.url);
         //----未登录的转向登录页面
-        //res.send({"code" : "-1","message":"访问URL:"+req.path+"要求先登录"});
-        next();
+        res.send({"code" : "-1","message":"访问URL:"+req.path+"要求先登录"});
+        //next();
     }
 });
-
-//----显示微信菜单
-app.use("/menuInfo", require("./routes/menu4wx").showMenu);
 //----保存菜单到微信平台
 app.use("/saveMenu4wx", require("./routes/menu4wx").saveMenu4wx);
         
