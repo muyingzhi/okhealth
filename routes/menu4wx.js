@@ -2,7 +2,6 @@ var wechat = require('wechat');
 var config = require('../config');
 var querystring = require('querystring');
 exports.showMenu = function(req, res){
-	console.log("showMenu ......");
 	var API = wechat.API;
 	var api = new API(config.appid, config.appsecret);
 	api.getMenu(function(err, result){
@@ -16,7 +15,7 @@ exports.showMenu = function(req, res){
 			sender.data.title = config.title;
 			sender.data.menu = initMenu(result.menu.button);//----规范需要的显示数据3*5
 		}
-		res.render("views/weixinMenu/menuShow", sender);
+		res.render("weixinMenu/menuShow", sender);
 	});
 };
 exports.saveMenu4wx = function(req, res){

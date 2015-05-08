@@ -29,23 +29,6 @@ exports.weixinVerfiy = function(req,res,next){
 }
 exports.recieve = function(req,res,next){
     var message = req.weixin;
-    // recieveMessage(message,res);
-    // var checkWxuser = require("./UsersManager").checkWxuser;
-    // checkWxuser(message.FromUserName,function(result,error){
-    //     if(error){
-    //         console.log(error);
-    //         res.reply("微信用户注册情况审核失败:"+error.message);
-    //     }else{
-    //         if(result && result.length>0){
-    //             recieveMessage(message,res);
-    //         }else{
-    //             res.reply("未注册的，跳转到注册页面，并带微信编号昵称等；");
-    //         }
-    //     }
-    // })
-// }
-//----接收消息
-// function recieveMessage(message,res){
     if (message.MsgType == "text") {
         res.reply("Hello world:" + message.FromUserName + "。这是文本消息")
     } else if (message.MsgType == "event") {
