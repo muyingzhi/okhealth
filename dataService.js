@@ -50,13 +50,18 @@ app.use("/find", function(req, res){
     if(typeof selector =="string"){
         selector = JSON.parse(selector);
     }
+    if(selector.title){
+        selector = {title:new RegExp(selector.title,"i")};
+    }
+    console.log("selector:");
+    console.log(selector);
     doMongoDB(function(err, db){
         if(err){
             resSendWithCallback(callback, (err||{code:-1}), res);
         }
         var collection = db.collection(setName);
         collection.find(selector).toArray(function(err,datas){
-            console.log(datas);
+            console.log("检索数据记录数："+datas.length);
             var result = {code :0,
                 list:datas,
                 total:datas.length};

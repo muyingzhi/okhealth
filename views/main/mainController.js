@@ -1,10 +1,11 @@
 define(['controller/controllers','jquery',
     'directives/checkboxDept','services/HealthDBService','services/DBService2web'],function(controllers,$){
     console.log("mainController start...");
-    controllers.controller("mainController", ['$rootScope','$scope','$routeParams','$http','HealthDBService','DBService2web',
+    controllers.controller("mainController", ['$rootScope','$scope','$routeParams'
+        ,'$http','HealthDBService','DBService2web',
         function($rootScope,$scope,$routeParams,$http,HealthDBService,dbService){
             $scope.deptDict=HealthDBService.listDeptDict();
-            var setName = "hospital";
+            var setName = "eeee";
             //-----
                 var webds = new WebDataStore($);
             //---------设置顶端菜单
@@ -28,7 +29,14 @@ define(['controller/controllers','jquery',
             //----取医院列表
             var showList = function(data){
                 if(data && data.code==0){
-                    $scope.hospitals = data.list;
+                    $scope.hospitals=[];
+                    if(data.list.length>10){
+                        for(var i=0;i<20;i++){
+                            $scope.hospitals.push(data.list[i]);
+                        }
+                    }else{
+                        $scope.hospitals = data.list;
+                    }
                 }else{
                     $rootScope.message = ("失败:("+data.code+")"+data.errmsg);
                     $("#myModal").modal("show");
@@ -49,7 +57,7 @@ define(['controller/controllers','jquery',
                         $rootScope.message = ("保存成功");
                         $("#myModal").modal("show");
                         $scope.editOne = {};
-                        $scope.refresh();
+                        //$scope.refresh();
                     }else{
                         $rootScope.message = ("失败:("+data.code+")"+data.errmsg);
                         $("#myModal").modal("show");
