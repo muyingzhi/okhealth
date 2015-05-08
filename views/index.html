@@ -27,8 +27,10 @@
         <li ng-repeat="item in topNav">
           <a href="{{item.href}}">{{item.text}}</a>
         </li>
-        <li><span><a href="##" ng-click="onSelectWord('cn')">中文</a></span>
-          <span><a href="##" ng-click="onSelectWord('uk')">ۋېڭۋېڭ</a></span></li>
+        <li><span><a href="##" ng-click="onSelectWord('cn')">[中文]</a></span></li>
+        <li><span><a href="##" ng-click="onSelectWord('uk')">[ۋېڭۋېڭ]</a></span></li>
+        <li ><a href="#" id="httpReq"></a></li>
+        <li ><a href="#" id="httpRes"></a></li>
       </ul>
     </div>
   </nav>
