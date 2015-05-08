@@ -12,12 +12,11 @@ var app = express();
 var error = {};
 //-------------views engine for HTML
 var views = [];
-views = path.join(__dirname, './');//----设置views的目录，render函数指定的页面相对／health的路径
+views = path.join(__dirname, './views');//----设置views的目录，res.render()指定的页面路径由此开始
 app.set('views', views);
+app.set('view engine', 'html');         // app.set('view engine', 'ejs');
 app.engine('html', ejs.renderFile);
-app.set('view engine', 'html'); // app.set('view engine', 'ejs');
-//----js文件目录,在html中引用js文件采用这里定义的相对路径
-app.use(express.static(path.join(__dirname, './views')));
+app.use(express.static(path.join(__dirname, './views')));//----设置静态文件路由相对路径
 //----设置session
 app.use(session({
     name: 'Msessionid',
@@ -44,11 +43,12 @@ app.use('/verfiy',wechat(token,function(req,res,next){
 //----通过oauth2认证，获取微信用户，带入用户编辑页面
 app.use("/oauthUser", require("./routes/WeixinServer").registBywx);
 
+var userService = require("./routes/userService");
 //----登录处理
 app.use("/dologin", function(req, res){
     var query = req.body;
     var user = {username:query.username,password:query.password};
-    require("./routes/userService").dologin(user,function(isOK){
+    userService.dologin(user,function(isOK){
         if(isOK){
             req.session.user = user;//用户信息写入session
             res.send({code:0,message:"ok"});
@@ -61,11 +61,11 @@ app.use("/dologin", function(req, res){
 //----保存用户
 app.use("/saveUser",function(req, res){
     var user = req.body;
-    require('./routes/userService').saveUser(user,function(result){
+    userService.saveUser(user,function(result){
         res.send(result);
     });
 })
-
+//----用户退出
 app.use("/logout", function(req, res){
     if(req.session && req.session.user){
         req.session.user = null;//用户信息清空
@@ -104,11 +104,8 @@ app.use("/saveHospital",function(req, res){
         });
     })
 })
-
-console.log("showMenu ......");
 //----显示微信菜单
 app.use("/weixinMenu/menuInfo", function(req,res){
-    console.log("showMenu ......");
     require("./routes/menu4wx").showMenu(req,res);
 });//require("./routes/menu4wx").showMenu);
 //----检查session，以下的router需要用户登录
@@ -161,7 +158,7 @@ function authentication(req, res, next) {
 function notAuthentication(req, res, next) {
     if (req.session.user) {
         req.session.error = '已登陆';
-        res.render("views/main");//----主页面
+        res.render("main/main");//----主页面
         return;
     }
     next();
