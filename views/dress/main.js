@@ -24,7 +24,7 @@ require([
     'angular',
     'app',
     'bootstrap',
-    'collect','match','dress','DBService2web'],
+    'collect','match','dress','analysis','DBService2web'],
     function(angular,app,bootstrap){
 	    'use strict';
         addStyle("stylesheets/bootstrap.min.css");
@@ -44,6 +44,10 @@ require([
                 when("/dress",{
                     templateUrl:"dress.html",
                     controller:"dressCtl"
+                }).
+                when("/analysis",{
+                    templateUrl:"analysis.html",
+                    controller:"analysisCtrl"
                 }).
                 otherwise({
                     redirectTo:"/collect"

@@ -4,7 +4,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
 </head>
 <body class="container" ng-controller="indexCtl">
-	<h1>夏季Summer</h1>
+	<h1>Summer Of Dress</h1>
 	<div class="row">
 		<ul class="nav nav-pills nav-justified">
 			<li role="presentation" ng-class="selected('collect')">
@@ -16,22 +16,15 @@
 			<li role="presentation" ng-class="selected('dress')">
 				<a href="#dress">穿着</a>
 			</li>
+			<li role="presentation" ng-class="selected('analysis')">
+				<a href="#analysis">统计分析</a>
+			</li>
 		</ul>
 	</div>
 	<div class="row" ng-view style="margin-top:10px;">
 		
 	</div>
 <script type="text/javascript" src="javascripts/require.js" data-main="main"></script>
-<script type="text/javascript">
-	// function myController(){
-	// 	$scope.selected = function($scope){
-	// 		if($scope.topNav===page){
- //                    return "active";
- //                }else{
- //                    return "";
- //                }
-	// 	}
-	// }
-</script>
+
 </body>
 </html>
