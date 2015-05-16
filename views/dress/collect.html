@@ -1,0 +1,65 @@
+<div class="col-md-4">
+	<div class="panel panel-default">
+		<div class="panel-heading">上衣</div>
+		<div class="row">
+			<div class="col-xs-4" ng-repeat="item in dress.tops">
+				<a href="#" class="thumbnail"><img ng-src="{{item.jpg}}" alt=""></a>
+			</div>
+		</div>
+		<div class="panel-footer">
+			<div class="btn btn-success" ng-click="addClick('tops')" ng-show="newOne.type!='tops'">添加</div>
+			<div ng-show="newOne.type=='tops'" class="alert alert-info">
+				<form action="upload-dress" enctype="multipart/form-data" method="post">
+					<input type="hidden" name="type" value="tops">
+					<span><input type="file" id="fileTops" name="fileTops"/></span>
+					<span><input type="submit" class="btn btn-default" value="提交" 
+						ng-click="saveDress('fileTops')"></span>
+					<span><input type="reset" class="btn btn-default" value="取消" ng-click="newOne.type=''"></span>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="col-md-4">
+	<div class="panel panel-default">
+		<div class="panel-heading">裤子</div>
+		<div class="row">
+			<div class="col-xs-4" ng-repeat="item in dress.bottoms">
+			<a href="#" class="thumbnail"><img ng-src="{{item.jpg}}" alt=""></a>
+			</div>
+		</div>
+		<div class="panel-footer">
+			<div class="btn btn-success" ng-click="addClick('bottoms')" ng-show="newOne.type!='bottoms'">添加</div>
+			<div ng-show="newOne.type=='bottoms'" class="alert alert-info">
+				<form action="upload-dress" enctype="multipart/form-data" method="post">
+					<input type="hidden" name="type" value="bottoms">
+					<span><input type="file" id="fileTops" name="fileTops"/></span>
+					<span><input type="submit" class="btn btn-default" value="提交" 
+						ng-click="saveDress('fileTops')"></span>
+					<span><input type="reset" class="btn btn-default" value="取消" ng-click="newOne.type=''"></span>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="col-md-4">
+	<div class="panel panel-default">
+		<div class="panel-heading">鞋</div>
+		<div class="row">
+			<div class="col-xs-4" ng-repeat="item in dress.shoes">
+			<a href="#" class="thumbnail"><img ng-src="{{item.jpg}}" alt=""></a>
+			</div>		</div>
+		<div class="panel-footer">
+			<div class="btn btn-success" ng-click="addClick('shoes')" ng-show="newOne.type!='shoes'">添加</div>
+			<div ng-show="newOne.type=='shoes'" class="alert alert-info">
+				<form action="upload-dress" enctype="multipart/form-data" method="post">
+					<input type="hidden" name="type" value="shoes">
+					<span><input type="file" id="fileTops" name="fileTops"/></span>
+					<span><input type="submit" class="btn btn-default" value="提交" 
+						ng-click="saveDress('fileTops')"></span>
+					<span><input type="reset" class="btn btn-default" value="取消" ng-click="newOne.type=''"></span>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

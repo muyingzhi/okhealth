@@ -7,10 +7,11 @@ var http = require('http');
 var bodyParser = require("body-parser");
 var session = require('cookie-session');
 var wechat = require('wechat');
-var MongoClient = require('mongodb').MongoClient;
 var ObjectID = require('mongodb').ObjectID;
 var app = express();
 var error = {};
+var db = null;
+
 //-------------views engine for HTML
 var views = [];
 views = path.join(__dirname, './');//----设置views的目录，render函数指定的页面相对／health的路径
@@ -53,21 +54,19 @@ app.use("/find", function(req, res){
     if(selector.title){
         selector = {title:new RegExp(selector.title,"i")};
     }
-    console.log("selector:");
-    console.log(selector);
-    doMongoDB(function(err, db){
+    var collection = db.collection(setName);
+    console.log("db collection:"+setName);
+
+    collection.find(selector).toArray(function(err,datas){
         if(err){
             resSendWithCallback(callback, (err||{code:-1}), res);
+            return;
         }
-        var collection = db.collection(setName);
-        collection.find(selector).toArray(function(err,datas){
-            console.log("检索数据记录数："+datas.length);
-            var result = {code :0,
-                list:datas,
-                total:datas.length};
-            resSendWithCallback(callback, result, res);
-            db.close();
-        });
+        console.log("检索数据记录数："+datas.length);
+        var result = {code :0,
+            list:datas,
+            total:datas.length};
+        resSendWithCallback(callback, result, res);
     });
 });
 app.use("/save",function(req, res){
@@ -83,26 +82,22 @@ app.use("/save",function(req, res){
     if(!document._id){//---新建的，生成_id;
         var objId = new ObjectID();
         document._id = objId.toHexString();
+    }else{
+        
     }
     console.log(document);
     if(!setName){
         resSendWithCallback(callback, {code:-1,"errmsg":"未指定保存集合的名称"}, res);
         return;
     }
-    doMongoDB(function(err,db){
+    var collection = db.collection(setName);
+    collection.save(document, function(err){
         if(err){
-            resSendWithCallback(callback ,(err||{code:-1}),res);
+            resSendWithCallback(callback ,err, res);
+        }else{
+            resSendWithCallback(callback ,{"code":0},res);
         }
-        var collection = db.collection(setName);
-        collection.save(document, function(err){
-            if(err){
-                resSendWithCallback(callback ,err, res);
-            }else{
-                resSendWithCallback(callback ,{"code":0},res);
-            }
-            db.close();
-        });
-    })
+    });
 });
 app.use("/remove",function(req, res){
     console.log("reomve");
@@ -119,20 +114,13 @@ app.use("/remove",function(req, res){
         resSendWithCallback(callback, {code:-1,"errmsg":"未指定删除数据集合的名称"}, res);
         return;
     }
-    doMongoDB(function(err,db){
+    collection.remove(selector, function(err){
         if(err){
-            resSendWithCallback(callback ,(err||{code:-1}),res);
+            resSendWithCallback(callback ,err, res);
+        }else{
+            resSendWithCallback(callback ,{"code":0},res);
         }
-        var collection = db.collection(setName);
-        collection.remove(selector, function(err){
-            if(err){
-                resSendWithCallback(callback ,err, res);
-            }else{
-                resSendWithCallback(callback ,{"code":0},res);
-            }
-            db.close();
-        });
-    })
+    });
 })
 //***********当callbackName有效，则支持jsonp返回；否则，返回对象
 function resSendWithCallback(callbackName,obj,res){
@@ -164,13 +152,8 @@ if (app.get('env') === 'development') {
         res.send( err.message);
     });
 }
-//********************************************************
-function doMongoDB(callback){
-    MongoClient.connect("mongodb://127.0.0.1:27017/test", function(err, db){
-        if(err){
-            callback(err||{code:-1});
-        }
-        callback(err,db);
-    });
+
+app.setDataBase = function(dataBase){
+    db = dataBase;
 }
 module.exports = app;

@@ -3,7 +3,7 @@ define(['controller/controllers','jquery'
     console.log("indexController start...");
     controllers.controller("indexController", ['$rootScope','$scope','$routeParams',
         function($rootScope,$scope,$routeParams){
-            document.title = $scope.title="云工作";
+            document.title = $scope.title="MongoDB工作台";
             var words = {
                 cn:{"level":"等级","exit":"退出","login":"登录",help:"帮助"},
                 uk:{"level":"داھسدا","exit":"يۇڭيڭ","login":"تيۇۇڭ",help:"ڭسېري"}
@@ -14,6 +14,7 @@ define(['controller/controllers','jquery'
             }
             $rootScope.topNav = [
                 {text:"主页",href:"#main"},
+                {text:"穿着",href:"../dress/index.html"},
                 {text:$scope.language.help,href:"#help"}
                 ];
         }

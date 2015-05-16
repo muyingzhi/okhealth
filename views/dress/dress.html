@@ -1,0 +1,31 @@
+<table class="table">
+	<tr class="row">
+		<th class="col-xs-2">以往穿着</th>
+		<th class="col-xs-3">上装</th>
+		<th class="col-xs-3">裤子</th>
+		<th class="col-xs-3">鞋</th>
+		<th class="col-xs-1">{{today}}</th>
+	</tr>
+	<tr class="row" ng-repeat="item in match">
+		<td>{{item.dressDate}}</td>
+		<td>
+				<div class="col-xs-6">
+				<a href="#" class="thumbnail"><img ng-src="{{item.tops}}" alt="{{item.tops}}"></a>
+				</div>
+		</td>
+		<td>
+				<div class="col-xs-6">
+				<a href="#" class="thumbnail"><img ng-src="{{item.bottoms}}" alt="{{item.bottoms}}"></a>
+				</div>
+		</td>
+		<td>
+				<div class="col-xs-6">
+				<a href="#" class="thumbnail"><img ng-src="{{item.shoes}}" alt="{{item.shoes}}"></a>
+				</div>
+		</td>
+		<td>
+			<check-today today="{{today}}" ng-model="item">
+			</check-today>
+		</td>
+	</tr>
+</table>

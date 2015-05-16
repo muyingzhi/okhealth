@@ -1,0 +1,38 @@
+<table class="table table-bordered" ng-init="likes = [{id:1,text:'喜欢'},{id:2,text:'不喜欢'},{id:3,text:'待定'}]">
+	<tr class="row">
+		<td colspan="5">
+			<div class="btn btn-default" ng-click="doMatch()">更新服装</div>
+			<div class="btn btn-default" ng-click="readMatch()">刷新搭配</div>
+		</td>
+	</tr>
+	<tr class="row">
+		<th class="col-xs-1"></th>
+		<th class="col-xs-3">上衣</th>
+		<th class="col-xs-3">裤子</th>
+		<th class="col-xs-3">鞋</th>
+		<th class="col-xs-2">喜欢</th>
+	</tr>
+	<tr class="row alert" ng-repeat="item in match" 
+		 ng-class="{'alert-success':item.like==1,'alert-warning':item.like==2}">
+		<td>{{$index+1}}</td>
+		<td>
+				<div class="col-xs-6">
+				<a href="#" class="thumbnail"><img ng-src="{{item.tops}}" title="{{item.tops}}"></a>
+				</div>	
+		</td>
+		<td>		
+				<div class="col-xs-6">
+				<a href="#" class="thumbnail"><img ng-src="{{item.bottoms}}" alt="{{item.bottoms}}"></a>
+				</div>
+		</td>
+		<td>
+				<div class="col-xs-6">
+				<a href="#" class="thumbnail"><img ng-src="{{item.shoes}}" alt="{{item.shoes}}"></a>
+				</div>
+		</td>
+		<td >
+			<radio-like ng-model="item">
+			</radio-like>
+		</td>
+	</tr>
+</table>

@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+// var os = require("os");
+// console.log(os.tmpDir());
 var debug = require('debug')('app4weixin');
 var app = require('./app');
 

@@ -3,12 +3,13 @@ var token = require('./config').token;
 var express = require('express');
 var ejs = require('ejs');
 var path = require("path");
-var http = require('http');
+var fs = require('fs');
 var bodyParser = require("body-parser");
 var session = require('cookie-session');
 var wechat = require('wechat');
 var MongoClient = require('mongodb').MongoClient;
 var app = express();
+var db ;
 var error = {};
 //-------------views engine for HTML
 var views = [];
@@ -73,26 +74,19 @@ app.use("/logout", function(req, res){
     res.send("logout success");
 });
 app.use("/getHospitals", function(req, res){
-    doMongoDB(function(err, db){
-        if(err){
-            res.send(err||{code:-1});
-        }
+
         var collection = db.collection('hospitals');
         collection.find().toArray(function(err,datas){
             var result = {code :0,list:datas};
             res.send(result);
             db.close();
         });
-    });
+
 });
 app.use("/saveHospital",function(req, res){
     var result = {code:0};
     var hospital = req.body.hospital;
-    console.log(hospital);
-    doMongoDB(function(err,db){
-        if(err){
-            res.send(err);
-        }
+    
         var collection = db.collection('hospitals');
         collection.save(hospital, function(err){
             if(err){
@@ -102,7 +96,6 @@ app.use("/saveHospital",function(req, res){
             }
             db.close();
         });
-    })
 })
 //----显示微信菜单
 app.use("/weixinMenu/menuInfo", function(req,res){
@@ -163,12 +156,8 @@ function notAuthentication(req, res, next) {
     }
     next();
 }
-function doMongoDB(callback){
-        MongoClient.connect("mongodb://127.0.0.1:27017/test", function(err, db){
-            if(err){
-                callback(err||{code:-1});
-            }
-            callback(err,db);
-        });
-    }
+
+app.setDataBase = function(database){
+    db = database;
+}
 module.exports = app;

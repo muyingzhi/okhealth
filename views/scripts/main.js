@@ -73,7 +73,7 @@ require([
                     controller:"editUserController"
                 }).
                 otherwise({
-                    redirectTo:"/main"
+                    redirectTo:"/"
                 });
             }]
         );
