@@ -6,6 +6,10 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var ejs = require('ejs');
 var app = express();
+var MongoClient = require('mongodb').MongoClient;
+var dbServe = require('./dataService');
+var app4ok = require('./app4okhealth');
+var app4dress = require('./app4dress');
 // uncomment after placing your favicon in /public
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -16,8 +20,9 @@ var views = [];
 app.use("/public/javascripts/jquery.min.map", function(req, res){
     res.send("");
 })
-app.use('/ok', require('./app4okhealth'));
-app.use('/dataService', require('./dataService'));
+app.use('/ok', app4ok);
+app.use('/dataService', dbServe);
+app.use('/dress',app4dress);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -42,4 +47,21 @@ app.use(function(err, req, res, next) {
     console.log("production error handler:----"+err.message);
     res.send(err.message);
 });
+//***********设置数据库连接
+(function(callback){
+    MongoClient.connect("mongodb://127.0.0.1:27017/test", function(err, db){
+        if(err){
+            err = (err||{code:-1});
+        }
+        console.log("do mongodb is ok:"+db.databaseName);
+        db.authenticate("test","test",function(err,result){
+            console.log("do mongodb authenticate ok:"+db.databaseName);
+            //callback(err,db);
+            dbServe.setDataBase(db);
+            app4ok.setDataBase(db);
+            app4dress.setDataBase(db);
+        })
+    });
+})();
+
 module.exports = app;
