@@ -28,3 +28,55 @@
 		</div>
 	</div>
 </div>
+<div class="col-md-12">
+	<div class="row">
+		<div class="col-md-6 bs-glyphicons" >
+			<button type="button" class="btn btn-{{one.color}}" style="float:right;margin-left:5px" aria-label="Left Align" ng-repeat="one in t1"
+			ng-click="click(one)">
+				<span class="glyphicon glyphicon-{{one.icon}}" aria-hidden="true">{{one.code}}</span>
+			</button>
+		</div>
+		<div class="col-md-6">
+			<button type="button" class="btn btn-{{one.color}}" style="float:left;margin-left:5px" aria-label="Left Align" ng-repeat="one in t2"
+			ng-click="click(one)">
+				<span class="glyphicon glyphicon-{{one.icon}}" aria-hidden="true">{{one.code}}</span>
+			</button>
+		</div>
+	</div>
+	<div class="row" style="margin-top:10px">
+		<div class="col-md-6 bs-glyphicons">
+			<button type="button" class="btn btn-{{one.color}}" style="float:right;margin-left:5px" aria-label="Left Align" ng-repeat="one in t4"
+			ng-click="click(one)">
+				<span class="glyphicon glyphicon-{{one.icon}}" aria-hidden="true">{{one.code}}</span>
+			</button>
+		</div>
+		<div class="col-md-6">
+			<button type="button" class="btn btn-{{one.color}}" style="float:left;margin-left:5px" aria-label="Left Align" ng-repeat="one in t3"
+			ng-click="click(one)">
+				<span class="glyphicon glyphicon-{{one.icon}}" aria-hidden="true">{{one.code}}</span>
+			</button>
+		</div>
+	</div>
+	<div class="row" style="margin-top:10px" ng-show="currentOne">
+		<div class="col-md-6 col-md-offset-3">
+			<div class="panel panel-default">
+				<div class="panel-heading">"{{currentOne.code}}"病症及治疗情况</div>
+				<div class="panel-body">
+					<div class="col-xs-6">
+						<ul class="list-group">
+							<li class="list-group-item">龋齿</li>
+							<li class="list-group-item">蛀牙</li>
+							<li class="list-group-item">断牙</li>
+						</ul>
+					</div>
+					<div class="col-xs-6">
+						<ul class="list-group">
+							<li class="list-group-item">2015.1 拔除</li>
+							<li class="list-group-item">2014.2 感染</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
