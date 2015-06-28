@@ -1,3 +1,4 @@
+var debug = require('debug')('app');
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -53,9 +54,9 @@ app.use(function(err, req, res, next) {
         if(err){
             err = (err||{code:-1});
         }
-        console.log("do mongodb is ok:"+db.databaseName);
+        debug("------do mongodb is ok:"+db.databaseName);
         db.authenticate("test","test",function(err,result){
-            console.log("do mongodb authenticate ok:"+db.databaseName);
+            debug("-----do mongodb authenticate ok:"+db.databaseName);
             //callback(err,db);
             dbServe.setDataBase(db);
             app4ok.setDataBase(db);
