@@ -56,6 +56,7 @@ app.use(function(err, req, res, next) {
         }
         debug("------do mongodb is ok:"+db.databaseName);
         db.authenticate("test","test",function(err,result){
+            debug(err);
             debug("-----do mongodb authenticate ok:"+db.databaseName);
             //callback(err,db);
             dbServe.setDataBase(db);
